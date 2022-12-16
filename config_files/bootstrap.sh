@@ -79,6 +79,12 @@ if [ "$HOSTNAME" == "node-master" ] ; then
     printf " * [${green}SPARK${reset}] ${lblue}Starting SPARK history server${reset}...\n"
     start-history-server.sh
 
+    # Seed database
+    cp ${MYDIR}/precos-semestrais-ca-2022-01.csv ${MYDIR}/
+    printf " * [${green}MONGO${reset}] ${lblue}Seeding database${reset}...\n"
+    python /root/apps/seed_db.py
+    printf " * [${green}MONGO${reset}] ${lblue}Finished${reset}.\n"
+
     printf " * ${green}$(tput blink)All set!${reset}\n"
 else
     sleep 2

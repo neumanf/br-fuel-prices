@@ -14,6 +14,7 @@
 
 # Import base image
 FROM ubuntu:20.04
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Defines user and working dir
 USER root
@@ -24,10 +25,14 @@ WORKDIR ${MYDIR}
 COPY . .
 
 # Update system and install required packages (silently)
-RUN apt-get update && apt-get install -y python3.8 ssh openjdk-8-jre-headless vim net-tools iputils-ping dos2unix unzip
+RUN apt-get update 
+RUN apt-get install -y python3.8 python3-pip ssh openjdk-8-jre-headless vim net-tools iputils-ping dos2unix unzip
 
 # Create a symbolic link to make 'python' be recognized as a system command
 RUN ln -sf /usr/bin/python3 /usr/bin/python
+
+# Install necessary python packages
+RUN pip3 install pymongo
 
 # Configure Hadoop enviroment variables
 ENV HADOOP_HOME "${MYDIR}/hadoop"
@@ -62,7 +67,7 @@ RUN ln -sf ${HADOOP_HOME}/spark-3*-bin-hadoop3 ${HADOOP_HOME}/spark
 
 # Download the dataset (if needed)
 # RUN wget --no-check-certificate https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/precos-semestrais-ca.zip
-RUN unzip precos-semestrais-ca.zip -d ${HADOOP_HOME}/apps && rm -rf precos-semestrais-ca.zip
+RUN unzip precos-semestrais-ca.zip -d ${MYDIR} && rm -rf precos-semestrais-ca.zip
 
 # Optional (convert charset from UTF-16 to UTF-8)
 RUN dos2unix config_files/*

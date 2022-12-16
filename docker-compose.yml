@@ -24,6 +24,18 @@ networks:
         - subnet: 172.18.0.0/24
 
 services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=br_fuel_prices
+      - MONGO_INITDB_ROOT_USERNAME=br_fuel_prices
+      - MONGO_INITDB_ROOT_PASSWORD=br_fuel_prices
+    networks:
+      hadoop_network:
+        ipv4_address: 172.18.0.10
+        
   node-master:
     container_name: node-master
     hostname: node-master
@@ -33,6 +45,8 @@ services:
     networks:
       hadoop_network:
         ipv4_address: 172.18.0.2
+    depends_on:
+      - mongodb
     ports:
       - 9870:9870
       - 8088:8088
@@ -70,16 +84,4 @@ services:
     command: /root/config_files/bootstrap.sh
     volumes: 
       - ./apps:/root/apps
-
-  mongodb:
-    container_name: mongodb
-    image: mongo
-    restart: always
-    environment:
-      - MONGO_INITDB_DATABASE=br_fuel_prices
-      - MONGO_INITDB_ROOT_USERNAME=br_fuel_prices
-      - MONGO_INITDB_ROOT_PASSWORD=br_fuel_prices
-    networks:
-      hadoop_network:
-        ipv4_address: 172.18.0.10
 

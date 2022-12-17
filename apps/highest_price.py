@@ -5,12 +5,12 @@ spark = init_spark()
 df = spark.read.format("mongodb").load()
 
 # Filtra por produto
-df = df.filter(df['Produto'] == 'GASOLINA')
+df = df.filter(df['produto'] == 'GASOLINA')
 
 # Mapeia e converte valores do produto de string para float
-df = df.rdd.map(lambda x: (x.Produto, float(x.Valor_de_Venda.replace(",", ".")))).toDF(["Produto", "Valor"])
+df = df.rdd.map(lambda x: (x.produto, float(x.valor_de_venda.replace(",", ".")))).toDF(["produto", "valor"])
 
 # Obtem o valor maximo
-df = df.groupBy("Produto").max("Valor")
+df = df.groupBy("produto").max("valor")
 
 df.show()

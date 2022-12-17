@@ -83,7 +83,7 @@ if [ "$HOSTNAME" == "node-master" ] ; then
     cp ${MYDIR}/precos-semestrais-ca-2022-01.csv ${MYDIR}/
     printf " * [${green}MONGO${reset}] ${lblue}Seeding database${reset}...\n"
     python /root/apps/seed_db.py
-    printf " * [${green}MONGO${reset}] ${lblue}Finished${reset}.\n"
+    printf " * [${green}MONGO${reset}] ${lblue}Seeding finished${reset}.\n"
 
     printf " * ${green}$(tput blink)All set!${reset}\n"
 else

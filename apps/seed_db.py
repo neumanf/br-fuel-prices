@@ -7,7 +7,7 @@ fuel_prices = db.fuel_prices
 
 # Insercao dos dados no banco
 with open('/root/precos-semestrais-ca-2022-01.csv', 'r') as csvfile:
-  header = ["Regiao","Estado","Municipio","Revenda","CNPJ_da_Revenda","Nome_da_Rua","Numero_Rua","Complemento","Bairro","Cep","Produto","Data_da_Coleta","Valor_de_Venda","Valor_de_Compra","Unidade_de_Medida","Bandeira"]
+  header = ["regiao","estado","municipio","revenda","cnpj_da_revenda","nome_da_rua","numero_rua","complemento","bairro","cep","produto","data_da_coleta","valor_de_venda","valor_de_compra","unidade_de_medida","bandeira"]
   reader = csv.reader(csvfile, delimiter=';')
   next(reader)
 

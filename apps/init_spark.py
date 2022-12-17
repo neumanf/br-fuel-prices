@@ -28,8 +28,3 @@ def init_spark():
         .builder \
         .appName('br_fuel_prices') \
         .getOrCreate()
-
-spark = init_spark()
-df = spark.read.format("mongodb").load()
-
-df.printSchema()
